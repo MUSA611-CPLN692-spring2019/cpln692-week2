@@ -62,7 +62,7 @@
 
     ===================== */
 
-    var data = bikeArrayClean;
+    var data = bikeArrayDirty;
 
     /* =====================
 
@@ -70,7 +70,16 @@
 
     ===================== */
 
+    function filter(elem) {
+      if (elem.length>3) {
+        var numStations = Number(elem[elem.length - 1].substring(0,2));
+        return numStations>20 ? dataFiltered.push(elem) : null;
+      }
+      return null;
+    }
 
+    var dataFiltered = [];
+    data.forEach(filter);
 
     /* =====================
 
@@ -97,7 +106,13 @@
 
     ===================== */
 
+    function addMarker(elem) {
+        var coordinates = [Number(elem[1]), Number(elem[0])];
+        L.marker(coordinates).addTo(map);
+        return null;
+    }
 
+    dataFiltered.forEach(addMarker);
 
     /* =====================
 

@@ -67,8 +67,21 @@
       //  works! You should see 'Success: true' if all goes well.
 
       /* Define your function here */
+      function branch(b) {
+        switch(typeof b) {
+          case 'string':
+            yourSum += b.length;
+            break;
+          case 'number':
+            yourSum += b;
+            break;
+          default:
+            console.log("Not sure how to proceed with value:", b);
+            break;
+        }
+      }
 
-      for (var i = 0; i < theArray.length, i++) { /* Inside the loop*/ }
+      theArray.forEach(branch);
 
       /* =====================
 
