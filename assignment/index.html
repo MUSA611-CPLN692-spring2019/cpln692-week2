@@ -61,11 +61,29 @@
       Start code
 
       ===================== */
+      function extract(elem) {
+        var values = [];
+        Object.keys(elem).forEach(function(key){
+          values.push(elem[key]);
+        });
+        outArray.push(values);
+      };
 
-      var jsonToCsv = function(json) { console.log(json); };
+      var outArray = [];
 
+      var jsonToCsv = function(json) {
+        outArray.push(Object.keys(json[0]));
+        json.forEach(extract);
+        console.log(outArray);
+      };
 
-      var addMarkers = function(map) {};
+      var addMarkers = function(map) {
+        for (var i=1; i<outArray.length; i++) {
+          var elem = outArray[i];
+          L.marker([elem[1], elem[0]]).addTo(map);
+        }
+      };
+
 
       /* =====================
 
