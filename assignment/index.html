@@ -29,6 +29,8 @@
       	maxZoom: 20,
       	ext: 'png'
       }).addTo(map);
+
+
     </script>
     <script>
       /* =====================
@@ -63,9 +65,45 @@
       ===================== */
 
       var jsonToCsv = function(json) { console.log(json); };
+      let healthCentersArray = [['LNG','LAT','OBJECTID','NAME','ORGANIZATION','ZIP','PHONE','WEBSITE','DENTAL_PHONE','FULL_ADDRESS']]
+      for (var i=1; i<healthCenters.length; i++) {
+          var nestedarry = [parseFloat(`${healthCenters[i].LNG}`),
+                   parseFloat(`${healthCenters[i].LAT}`),
+                      `${healthCenters[i].OBJECTID}`,
+                      `${healthCenters[i].NAME}`,
+                      `${healthCenters[i].ORGANIZATION}`,
+                   Number(`${healthCenters[i].ZIP}`),
+                      `${healthCenters[i].PHONE}`,
+                      `${healthCenters[i].WEBSITE}`,
+                      `${healthCenters[i].DENTAL_PHONE}`,
+                      `${healthCenters[i].FULL_ADDRESS}`];
+          healthCentersArray.push(nestedarry)
+        };
+
+var myIcon = L.icon({
+    iconUrl: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+    iconSize: [38, 40],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+          });
+
+var addMarkers = function(map){
+  for (var i = 1; i <= healthCentersArray.length; i++) {
+    if(healthCentersArray[i][8] === 'N/A'){
+      L.marker([healthCentersArray[i][1], healthCentersArray[i][0]]).addTo(map)
+      .bindPopup(healthCentersArray[i][3])
+      .openPopup();
+    } else {  L.marker([healthCentersArray[i][1], healthCentersArray[i][0]], {icon: myIcon}).addTo(map)
+      .bindPopup(healthCentersArray[i][3])
+      .openPopup();
+
+    }
+  }
+
+}
 
 
-      var addMarkers = function(map) {};
+
 
       /* =====================
 
@@ -74,8 +112,10 @@
       ===================== */
 
 
-      jsonToCsv(healthCenters);
+      jsonToCsv(healthCentersArray);
       addMarkers(map);
+
+
     </script>
     <!--Your code ends here-->
   </body>

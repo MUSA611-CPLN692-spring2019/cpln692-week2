@@ -96,8 +96,9 @@
     Start code to add markers to map
 
     ===================== */
-
-
+    for (var i = 0; i < data.length; i++) {
+      L.marker([data[i][1], data[i][0]]).addTo(map);
+    }
 
     /* =====================
 
