@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!--stylesheet imports-->
-    <link rel="stylesheet" href="leaflet.css" />
-  </head>
-  <body>
-    <!--left panel-->
-    <div style="position:fixed;left:0px;width:400px">
-    </div>
-    <!--map-->
-    <div id="map" style="position:fixed;right:0px;left:400px;height:100%;">
-    </div>
 
-    <!--javascript imports-->
-    <script src="leaflet.js"></script>
-    <script src="health_centers.js"></script>
+<head>
+  <!--stylesheet imports-->
+  <link rel="stylesheet" href="leaflet.css" />
+</head>
 
-    <!--Your code starts here-->
-    <script>
-      var map = L.map('map', {
-        center: [39.9522, -75.1639],
-        zoom: 14
-      });
-      var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-	      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      	subdomains: 'abcd',
-      	minZoom: 0,
-      	maxZoom: 20,
-      	ext: 'png'
-      }).addTo(map);
-    </script>
-    <script>
-      /* =====================
+<body>
+  <!--left panel-->
+  <div style="position:fixed;left:0px;width:400px">
+  </div>
+  <!--map-->
+  <div id="map" style="position:fixed;right:0px;left:400px;height:100%;">
+  </div>
+
+  <!--javascript imports-->
+  <script src="leaflet.js"></script>
+  <script src="health_centers.js"></script>
+
+  <!--Your code starts here-->
+  <script>
+    var map = L.map('map', {
+      center: [39.9522, -75.1639],
+      zoom: 14
+    });
+    var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: 'abcd',
+      minZoom: 0,
+      maxZoom: 20,
+      ext: 'png'
+    }).addTo(map);
+  </script>
+  <script>
+    /* =====================
 
       # Week 2 - Assignment
 
@@ -56,27 +58,74 @@
       ===================== */
 
 
-      /* =====================
+    /* =====================
 
-      Start code
+    Start code
 
-      ===================== */
+    ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
+    var jsonToCsv = function(json) {
+      console.log(json);
+    };
+
+    // PART 1
+
+    const key = Object.keys(healthCenters[0]);
+    const list = [
+      [key],
+    ]; //Master list to be used in console.log
+
+    for (let i = 0; i < healthCenters.length; i++) {
+      let storage = []; //Used to store information about each health center waiting to be pushed to the master list
+      for (let j = 0; j < key.length; j++) {
+        storage.push(healthCenters[i][key[j]]); //This stores each piece information of each health center
+      }
+      list.push(storage); //Pushes stored information to the master list
+    }
+    console.log(list);
+
+    // PART 2
+
+    // First define two types of markers
+    var iconWithDental = L.icon ({
+      iconUrl: 'images/dental.png', // Set marker image to the tooth image.
+    })
+    var iconWODental = L.icon ({
+      iconUrl: 'images/marker-icon.png', // Use the default image
+    })
+
+    // Add marker and popup for each health center, checking for dental phone
+    for (let k = 0; k < healthCenters.length; k++) {
+      if (healthCenters[k].DENTAL_PHONE === 'N/A') { // No dental
+        var marker = L.marker([healthCenters[k].LAT, healthCenters[k].LNG], {
+          icon: iconWODental
+        }).addTo(map);
+        popupContent = healthCenters[k].NAME;
+        marker.bindPopup(popupContent).openPopup();
+      } else { // With dental
+        var marker = L.marker([healthCenters[k].LAT, healthCenters[k].LNG], {
+          icon: iconWithDental
+        }).addTo(map);
+        popupContent = healthCenters[k].NAME;
+        marker.bindPopup(popupContent).openPopup();
+      }
+    }
 
 
-      var addMarkers = function(map) {};
 
-      /* =====================
+    var addMarkers = function(map) {};
 
-      End code
+    /* =====================
 
-      ===================== */
+    End code
+
+    ===================== */
 
 
-      jsonToCsv(healthCenters);
-      addMarkers(map);
-    </script>
-    <!--Your code ends here-->
-  </body>
+    jsonToCsv(healthCenters);
+    addMarkers(map);
+  </script>
+  <!--Your code ends here-->
+</body>
+
 </html>
