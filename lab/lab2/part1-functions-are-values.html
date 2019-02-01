@@ -32,16 +32,16 @@
       var exampleSum = 0; // To count of the strings
 
       // A loop for summing the contents of theArray
-      for (var i = 0; i < theArray.length; i++) {
-        var arrayValue = theArray[i];
-        if (typeof arrayValue === 'string') {         // String case
-          exampleSum = exampleSum + arrayValue.length
-        } else if (typeof arrayValue === 'number') {  // Number case
-          exampleSum = exampleSum + arrayValue
-        } else {                                      // Otherwise
-          console.log("Not sure how to proceed with value:", arrayValue)
-        }
-      }
+      // for (var i = 0; i < theArray.length; i++) {
+      //   var arrayValue = theArray[i];
+      //   if (typeof arrayValue === 'string') {         // String case
+      //     exampleSum = exampleSum + arrayValue.length
+      //   } else if (typeof arrayValue === 'number') {  // Number case
+      //     exampleSum = exampleSum + arrayValue
+      //   } else {                                      // Otherwise
+      //     console.log("Not sure how to proceed with value:", arrayValue)
+      //   }
+      // }
 
       /* =====================
 
@@ -68,7 +68,28 @@
 
       /* Define your function here */
 
-      for (var i = 0; i < theArray.length, i++) { /* Inside the loop*/ }
+
+
+
+    var countValues = function (){}
+      for (var i = 0; i < theArray.length; i++) { /* Inside the loop*/
+        var arrayValue = theArray[i];
+        if (typeof arrayValue === 'string') {         // String case
+          exampleSum += arrayValue.length
+        } else if (typeof arrayValue === 'number') {  // Number case
+          exampleSum += arrayValue
+        } else if (typeof arrayValue === 'object'){
+          console.log('array');
+          countValues([arrayValue][i]);
+          console.log(arrayValue);
+        }
+      }
+
+
+        /*                                    // Otherwise
+          console.log("Not sure how to proceed with value:", arrayValue)
+        }*/
+
 
       /* =====================
 
