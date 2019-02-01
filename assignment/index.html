@@ -62,10 +62,32 @@
 
       ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
+      // var jsonToCsv = function(json) { console.log(json); };
+      var jsonToCsv = function(json) {
+        let header = Object.keys(json[0]);
+        let list = [header];
+        for(let i =0; i < json.length; i++) {
+          temp = Object.values(json[i]);
+          list.push(temp);
+        };
+        console.log(list);
+      };
 
+      let makeMarkerDental = function(hcObj) {
+        return L.marker([hcObj.LAT, hcObj.LNG], {color: 'red', fillColor:"#f03"}).bindPopup(hcObj.NAME);
+      };
 
-      var addMarkers = function(map) {};
+      let makeMarker = function(hcObj) {
+        return L.marker([hcObj.LAT, hcObj.LNG], {color: 'green', fillColor: 'green'}).bindPopup(hcObj.NAME);
+      };
+
+      var addMarkers = function(map) {
+        for(let i = 0; i < healthCenters.length; i++) {
+          if(healthCenters[i]["DENTAL_PHONE"] != "N/A") {
+            makeMarkerDental(healthCenters[i]).addTo(map);
+          } else {makeMarker(healthCenters[i]).addTo(map); };
+        };
+      };
 
       /* =====================
 
