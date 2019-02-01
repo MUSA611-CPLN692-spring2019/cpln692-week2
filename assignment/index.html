@@ -62,10 +62,37 @@
 
       ===================== */
 
+
+      let centerInfo = [['LNG','LAT','OBJECTID','NAME','ORGANIZATION',
+          'ZIP','PHONE','WEBSITE','DENTAL_PHONE','FULL_ADDRESS']];
+
+      for (var i = 0; i < 45; i++) {
+        let newPoint = [parseFloat(`${healthCenters[i].LNG}`),
+          parseFloat(`${healthCenters[i].LAT}`),
+          `${healthCenters[i].OBJECTID}`,
+          `${healthCenters[i].NAME}`,
+          `${healthCenters[i].ORGANIZATION}`,
+          Number(`${healthCenters[i].ZIP}`),
+          `${healthCenters[i].PHONE}`,
+          `${healthCenters[i].WEBSITE}`,
+          `${healthCenters[i].DENTAL_PHONE}`,
+          `${healthCenters[i].FULL_ADDRESS}`];
+        centerInfo.push(newPoint)
+      };
+      console.log(centerInfo)
+
+      var addMarkers = map => {
+        for (var j = 1; j < centerInfo.length; j++) {
+          L.marker([centerInfo[j][1], centerInfo[j][0]])
+          .bindPopup(centerInfo[j][3])
+          .addTo(map)
+        }
+      };
+
+      addMarkers(map);
+
       var jsonToCsv = function(json) { console.log(json); };
-
-
-      var addMarkers = function(map) {};
+      //var addMarkers = function(map) {};
 
       /* =====================
 
@@ -75,7 +102,7 @@
 
 
       jsonToCsv(healthCenters);
-      addMarkers(map);
+      //addMarkers(map);
     </script>
     <!--Your code ends here-->
   </body>

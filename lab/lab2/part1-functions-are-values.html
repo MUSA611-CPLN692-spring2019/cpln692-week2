@@ -38,7 +38,10 @@
           exampleSum = exampleSum + arrayValue.length
         } else if (typeof arrayValue === 'number') {  // Number case
           exampleSum = exampleSum + arrayValue
-        } else {                                      // Otherwise
+        } else if (arraycondition) {
+          exampleSum = exampleSum + arra
+        }
+        else {                                      // Otherwise
           console.log("Not sure how to proceed with value:", arrayValue)
         }
       }
@@ -68,7 +71,7 @@
 
       /* Define your function here */
 
-      for (var i = 0; i < theArray.length, i++) { /* Inside the loop*/ }
+      for (var i = 0; i < theArray.length; i++) { /* Inside the loop*/ }
 
       /* =====================
 
