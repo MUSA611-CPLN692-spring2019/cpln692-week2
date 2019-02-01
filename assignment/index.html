@@ -62,10 +62,59 @@
 
       ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
+      var jsonToCsv = function(json) {}
+      var healthTitle = [["LNG","LAT","OBJECTID","NAME","ORGANIZATION","ZIP","PHONE","WEBSITE","DENTAL_PHONE","FULL_ADDRESS"]];
+          for (let i = 0; i < healthCenters.length; i++) {
+            var healthInfo = [healthCenters[i].LNG,
+                              healthCenters[i].LAT,
+                              healthCenters[i].OBJECTID,
+                              healthCenters[i].NAME,
+                              healthCenters[i].ORGANIZATION,
+                              healthCenters[i].ZIP,
+                              healthCenters[i].PHONE,
+                              healthCenters[i].WEBSITE,
+                              healthCenters[i].DENTAL_PHONE,
+                              healthCenters[i].FULL_ADDRESS];
+                              healthTitle.push(healthInfo);
+                            }
 
 
-      var addMarkers = function(map) {};
+
+console.log(healthTitle);
+         var Icon = L.icon({
+          iconUrl: 'images/marker-icon.png',
+          shadowUrl: 'images/marker-shadow.png',
+
+          iconSize:     [10, 20], // size of the icon
+          shadowSize:   [10, 20], // size of the shadow
+          iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+          shadowAnchor: [0, 0],  // the same for the shadow
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+      });
+         var IconDental = L.icon({
+          iconUrl: 'images/marker-icon-2x.png',
+          shadowUrl: 'images/marker-shadow.png',
+
+          iconSize:     [20, 40], // size of the icon
+          shadowSize:   [20, 40], // size of the shadow
+          iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+          shadowAnchor: [0, 0],  // the same for the shadow
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+      });
+
+         var addMarkers = function(map) {
+           for (let j = 1; j < healthTitle.length; j++) {
+             if(healthTitle[j][5] >= 19140 && healthTitle[j][5] <= 19149) {
+               if(healthTitle[j][8] === 'N/A') {
+                 L.marker([healthTitle[j][1], healthTitle[j][0]], {icon: Icon}).addTo(map)
+                 .bindPopup(`${healthTitle[j].slice(3, 4)}`);
+               } else {
+                 L.marker([healthTitle[j][1], healthTitle[j][0]], {icon: IconDental}).addTo(map)
+                 .bindPopup(`${healthTitle[j].slice(3, 4)}`);
+               }
+           }
+         }
+       };
 
       /* =====================
 
