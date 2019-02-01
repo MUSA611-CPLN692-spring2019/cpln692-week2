@@ -61,11 +61,50 @@
       Start code
 
       ===================== */
+      //Part 1
+      var jsonToCsv = function(json) {
+        const replacer = (key, value) => value === null ? '' : value;
+        // specify how you want to handle null values here
+        const header = Object.keys(json[0]);
+        let csv = json.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+        csv.unshift(header.join(','));
+        csv = csv.join('\r\n');
+        console.log(csv);
+      };
 
-      var jsonToCsv = function(json) { console.log(json); };
+      //Part 2
+      var dentalIcon = L.icon({
+        iconUrl: 'images/dental.png',
+        shadowUrl: 'images/marker-shadow.png',
 
+        iconSize:     [38*0.7, 95*0.7], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+          });
+        var clinicIcon = L.icon({
+            iconUrl: 'images/clinical.png',
+            shadowUrl: 'images/marker-shadow.png',
 
-      var addMarkers = function(map) {};
+            iconSize:     [35, 45], // size of the icon
+            shadowSize:   [50, 64], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+              });
+
+      var myFeatureGroup = L.featureGroup().addTo(map).on("click", addMarkers);
+      for (let i = 0; i < healthCenters.length; i++) {
+        if (healthCenters[i].DENTAL_PHONE != "N/A") {
+          var marker = L.marker([healthCenters[i].LAT, healthCenters[i].LNG], {icon: dentalIcon}).addTo(myFeatureGroup).bindPopup("<b>" + healthCenters[i].NAME + "</b>");
+        };
+        if (healthCenters[i].DENTAL_PHONE == "N/A") {
+          var marker = L.marker([healthCenters[i].LAT, healthCenters[i].LNG], {icon: clinicIcon}).addTo(myFeatureGroup).bindPopup("<b>" + healthCenters[i].NAME + "</b>");
+      };
+    };
+      var addMarkers = function(map) {
+      };
 
       /* =====================
 
