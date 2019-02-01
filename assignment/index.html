@@ -62,21 +62,59 @@
 
       ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
+      var jsonToCsv = function(json){console.log(json);};
 
+      let healthCentersInfo = [['LNG','LAT','OBJECTID','NAME','ORGANIZATION','ZIP','PHONE','WEBSITE','DENTAL_PHONE','FULL_ADDRESS']];
+      for (var i=0; i<healthCenters.length; i++) {
+          var health = [healthCenters[i].LNG,
+          healthCenters[i].LAT,
+          healthCenters[i].OBJECTID,
+          healthCenters[i].NAME,
+          healthCenters[i].ORGANIZATION,
+          healthCenters[i].ZIP,
+          healthCenters[i].PHONE,
+          healthCenters[i].WEBSITE,
+          healthCenters[i].DENTAL_PHONE,
+          healthCenters[i].FULL_ADDRESS];
+          healthCentersInfo.push(health)
+      };
 
-      var addMarkers = function(map) {};
+      var icon1 = L.icon({
+        iconUrl:'D:/2019Spring/CPLN692/Data/cpln692-week2/assignment/images/marker-icon.png',
+        iconSize: [32, 38],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+      });
+
+      var icon2 = L.icon({
+        iconUrl:'D:/2019Spring/CPLN692/Data/cpln692-week2/assignment/images/icon-dental.jpg',
+        iconSize: [50, 40],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+      });
+
+      var addMarkers = function(map){
+        for (var j=0; j<healthCentersInfo.length; j++) {
+          if(healthCentersInfo[j][5]>19139 && healthCentersInfo[j][5]<19150){
+          if(healthCentersInfo[j][8] === 'N/A'){
+            L.marker([healthCentersInfo[j][1], healthCentersInfo[j][0]], {icon:icon1})
+            .addTo(map)
+            .bindPopup(healthCentersInfo[j][3]);
+            } else {
+            L.marker([healthCentersInfo[j][1], healthCentersInfo[j][0]], {icon:icon2})
+            .addTo(map)
+            .bindPopup(healthCentersInfo[j][3]);
+          }
+          }
+        }
+      };
 
       /* =====================
-
-      End code
-
-      ===================== */
-
-
-      jsonToCsv(healthCenters);
-      addMarkers(map);
-    </script>
-    <!--Your code ends here-->
-  </body>
-</html>
+           End code
+           ===================== */
+           jsonToCsv(healthCentersInfo);
+           addMarkers(map);
+         </script>
+         <!--Your code ends here-->
+       </body>
+     </html>
