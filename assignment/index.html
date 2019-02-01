@@ -19,7 +19,7 @@
     <!--Your code starts here-->
     <script>
       var map = L.map('map', {
-        center: [39.9522, -75.1639],
+        center: [39.9522, -72.0000],
         zoom: 14
       });
       var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
@@ -63,7 +63,17 @@
       ===================== */
 
       var jsonToCsv = function(json) { console.log(json); };
-
+      console.log("i'm here");
+      var csvHC = [];
+      var header = Object.keys(healthCenters[0]);
+      csvHC.push(header)
+      for (var i = 0; i < healthCenters.length; i = i+1) {
+      csvHC.push(Object.values(healthCenters[i]));
+      }
+      var makemarker = (obj) => {return L.marker([obj.LAT, obj.LNG]).bindPopup(obj.NAME)};
+      //for (var i = 0; i < healthCenters.length; i = i+1) {makemarker(healthCenters[i].addTo(map))};
+      var markers = healthCenters.map(makemarker);
+      markers.forEach((marker)=> {marker.addTo(map)})
 
       var addMarkers = function(map) {};
 
