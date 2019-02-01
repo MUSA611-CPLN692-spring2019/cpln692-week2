@@ -65,7 +65,31 @@
       var jsonToCsv = function(json) { console.log(json); };
 
 
-      var addMarkers = function(map) {};
+      var addMarkers = function(map) {
+        for(var obj in healthCenters){
+
+          var lat = healthCenters[obj].LAT
+          var lng = healthCenters[obj].LNG
+
+          if (healthCenters[obj].ZIP >= 19140 && healthCenters[obj].ZIP <= 19149){
+            if (healthCenters[obj].DENTAL_PHONE != "N/A"){
+              var mrkr = L.marker([lat,lng]).addTo(map);
+            } else{
+              var myIcon = L.icon({
+                iconUrl: 'marker-2.png',   //Icon just shows up as an empty box
+                iconSize: [40, 100],
+                iconAnchor: [38, 94],
+                popupAnchor: [-3, -76]
+              });
+              var mrkr = L.marker([lat,lng], {icon: myIcon}).addTo(map);
+            }
+
+
+            mrkr.bindPopup("Latitude - "+lat.toString()+ "\nLongitude -"+lng.toString()).openPopup();
+
+          }
+        }
+      };
 
       /* =====================
 

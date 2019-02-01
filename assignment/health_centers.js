@@ -541,3 +541,13 @@ var healthCenters = [
     "FULL_ADDRESS":"2144 Cecil B Moore Ave"
   }
 ];
+
+var array = [Object.keys(healthCenters[0])];
+
+for(var obj in healthCenters){
+  if(healthCenters[obj].ZIP >= 19140 && healthCenters[obj].ZIP <= 19149){
+    array.push(Object.values(healthCenters[obj]));
+  }
+}
+
+console.log(array);
