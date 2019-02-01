@@ -104,7 +104,7 @@ console.log(healthTitle);
 
          var addMarkers = function(map) {
            for (let j = 1; j < healthTitle.length; j++) {
-             if(healthTitle[j][5] > 19140 && healthTitle[j][5] < 19149) {
+             if(healthTitle[j][5] >= 19140 && healthTitle[j][5] <= 19149) {
                if(healthTitle[j][8] === 'N/A') {
                  L.marker([healthTitle[j][1], healthTitle[j][0]], {icon: Icon}).addTo(map)
                  .bindPopup(`${healthTitle[j].slice(3)}`);

@@ -20,7 +20,7 @@ NOTE: Try using the `plusOne` function in the body of your `plusTwo` function
 ===================== */
 
 var plusTwo = function(num) {
-  return num + 2;
+  return plusOne(plusOne(num));
 };
 
 console.log('plusTwo success:', plusTwo(99) === 101);
