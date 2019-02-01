@@ -78,10 +78,14 @@
       //to get the lat/lon: array.lat
 
       //a different marker
-      var myIcon = L.icon({
+      var dentalIcon = L.icon({
         iconUrl: 'images/Dental-icon.png',
         iconSize: [20, 20]
       });
+      var healthcareIcon = L.icon({
+        iconUrl: 'images/hospital_location-512.png',
+        iconSize: [20, 20]
+      })
 
       var addMarkers = function(map, json) {
 
@@ -90,13 +94,15 @@
         //        then add marker
         for(var i in json) { // go through the objects array just made, from the 2nd row
           if(json[i].ZIP >= 19140 && json[i].ZIP <= 19149) {
-            L.marker([json[i].LAT, json[i].LNG]).addTo(map).bindPopup(json[i].NAME);
+            if(json[i].DENTAL_PHONE != "N/A") { //2nd: dental institutes in different marker
+              L.marker([json[i].LAT, json[i].LNG], {icon: dentalIcon}).addTo(map).bindPopup("Dental Service: " + json[i].NAME);
+            }
+            else {
+              L.marker([json[i].LAT, json[i].LNG], {icon: healthcareIcon}).addTo(map).bindPopup(json[i].NAME);
+            }
+
           }
 
-          //2nd: dental institutes in different marker
-          if(json[i].DENTAL_PHONE != "N/A") {
-            L.marker([json[i].LAT, json[i].LNG], {icon: myIcon}).addTo(map).bindPopup("Dental Service: " + json[i].NAME);
-          }
         }
 
 
