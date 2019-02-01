@@ -32,48 +32,78 @@
     </script>
     <script>
       /* =====================
-
       # Week 2 - Assignment
-
       ## Introduction
-
        This week's assignment as having two separate parts:
-
        1. Log a series of arrays to the console that represents the health_centers dataset
        in array form. For example, [{'first': 1, 'second': 44}, {'first': 2, 'second': 12}]
        becomes [['first','second'],[1, 44],[2, 12]]
-
        2. Put a marker on the map for each health center in the specified lat/lng coordinates
        with a popup (a simple text dialog) that shows that location's name when its marker
        is clicked.
-
        EXTRA: Some of these locations offer dental services as well. Can you find some way to
        give dental locations a different icon? (Here's some relevant documentation:
        http://leafletjs.com/reference.html#icon)
-
        Remember: functions are meant to facilitate code comprehension and reuse. Try to
        use them to organize your code.
       ===================== */
-
-
       /* =====================
-
       Start code
-
       ===================== */
 
       var jsonToCsv = function(json) { console.log(json); };
-
-
       var addMarkers = function(map) {};
+      var len = healthCenters.length;
+      var icon = L.icon ({iconUrl: 'C:/Users/Li/cpln692-week2/assignment/images/marker-icon.png',
+                          shadowUrl: 'C:/Users/Li/cpln692-week2/assignment/images/marker-shadow.png',
+                          shadowSize: [50, 64],
+                          shadowAnchor: [15, 50],
+                          popupAnchor:  [0, -20]});
+      var iconDen = L.icon ({iconUrl: 'C:/Users/Li/cpln692-week2/assignment/images/marker_icon_dental.png',
+                            shadowUrl: 'C:/Users/Li/cpln692-week2/assignment/images/marker-shadow.png',
+                            shadowSize: [50, 64],
+                            shadowAnchor: [15, 50],
+                            iconSize: [38, 38],
+                            popupAnchor:  [0, -20]});
+
+
+      let healthArray = [["LNG","LAT","OBJECTID","NAME","ORGANIZATION","ZIP","PHONE","WEBSITE","DENTAL_PHONE","FULL_ADDRESS"]];
+      for (var i=0; i< len; i++){
+           var healthInfo = [healthCenters[i].LNG,
+                             healthCenters[i].LAT,
+                             healthCenters[i].OBJECTID,
+                             healthCenters[i].NAME,
+                             healthCenters[i].ORGANIZATION,
+                             healthCenters[i].ZIP,
+                             healthCenters[i].PHONE,
+                             healthCenters[i].WEBSITE,
+                             healthCenters[i].DENTAL_PHONE,
+                             healthCenters[i].FULL_ADDRESS];
+                             healthArray.push(healthInfo);
+                           };
+      console.log(healthArray);
+
+//https://leafletjs.com/reference-1.4.0.html
+
+  var addMarkers = function(map){
+        for (var j=1; j<healthArray.length; j++){
+          if (healthArray[j][5]>19140 && healthArray[j][5]<19149){
+            if (healthArray[j][8]==='N/A'){
+              L.marker([healthArray[j][1], healthArray[j][0]], {icon: icon}).addTo(map)
+              .bindPopup(`${healthArray[j].slice(3)}`);
+            }
+              else {
+              L.marker([healthArray[j][1], healthArray[j][0]], {icon: iconDen}).addTo(map)
+              .bindPopup(`${healthArray[j].slice(3)}`);
+            }
+          }
+        }
+     };
+
 
       /* =====================
-
       End code
-
       ===================== */
-
-
       jsonToCsv(healthCenters);
       addMarkers(map);
     </script>
