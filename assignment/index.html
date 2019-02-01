@@ -19,8 +19,8 @@
     <!--Your code starts here-->
     <script>
       var map = L.map('map', {
-        center: [39.9522, -75.1639],
-        zoom: 14
+        center: [39.952408, -75.163591], //orig coordinates 39.9522,-75.1639; city hall center 39.952408, -75.163591
+        zoom: 12
       });
       var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
 	      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -29,6 +29,7 @@
       	maxZoom: 20,
       	ext: 'png'
       }).addTo(map);
+
     </script>
     <script>
       /* =====================
@@ -64,8 +65,23 @@
 
       var jsonToCsv = function(json) { console.log(json); };
 
+      //Log series of arrays
+      var getValues = (x) => {return Object.values(x)}
+      var allHealthCenters = healthCenters.map(getValues)
+      var getKeys = [Object.keys(healthCenters[0])]
+      console.log(getKeys.concat(allHealthCenters))
 
       var addMarkers = function(map) {};
+
+      // Function to create markers and add them to the map
+      // Only health centers with ZIP codes between 1940 and 1949
+      for (i=0; i<healthCenters.length; i=i+1){
+        if (healthCenters[i].ZIP>=19140 & healthCenters[i].ZIP<=19149) {
+          marker = L.marker([healthCenters[i].LAT,healthCenters[i].LNG]);
+          marker.bindPopup(healthCenters[i].Name);
+          marker.addTo(map);
+        }
+      }
 
       /* =====================
 
