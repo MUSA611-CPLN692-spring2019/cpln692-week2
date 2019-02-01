@@ -63,13 +63,13 @@
       ===================== */
 
       var jsonToCsv = function(json) { console.log(json); };
-      console.log("i'm here");
+
       var csvHC = [];
       var header = Object.keys(healthCenters[0]);
       csvHC.push(header)
       for (var i = 0; i < healthCenters.length; i = i+1) {
-      csvHC.push(Object.values(healthCenters[i]));
-      }
+      csvHC.push(Object.values(healthCenters[i]))
+      };
       var makemarker = (obj) => {return L.marker([obj.LAT, obj.LNG]).bindPopup(obj.NAME)};
       //for (var i = 0; i < healthCenters.length; i = i+1) {makemarker(healthCenters[i].addTo(map))};
       var markers = healthCenters.map(makemarker);
