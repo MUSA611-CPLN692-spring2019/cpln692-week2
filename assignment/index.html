@@ -30,16 +30,6 @@
       	ext: 'png'
       }).addTo(map);
 
-      // Function to create markers and add them to the map
-      // Only health centers with ZIP codes between 1940 and 1949
-      for (i=0; i<healthCenters.length; i=i+1){
-        if (healthCenters[i].ZIP>=19140 & healthCenters[i].ZIP<=19149) {
-          marker = L.marker([healthCenters[i].LAT,healthCenters[i].LNG]);
-          marker.bindPopup(healthCenters[i].Name);
-          marker.addTo(map);
-        }
-      }
-
     </script>
     <script>
       /* =====================
@@ -75,8 +65,30 @@
 
       var jsonToCsv = function(json) { console.log(json); };
 
+      //Log series of arrays
+      var infoList = data => {
+        for (i=0;i<healthCenters.length;i+=1){
+          console.log(Object.values(healthCenters[0]))
+        }
+      }
+      var allHealthCenters = infoList(healthCenters)
+      //List of keys
+      var healthCentersKeys = Object.keys(healthCenters[0])
+      var healthCentersKeys2 = [healthCentersKeys]
+      console.log(healthCentersKeys2.concat(allHealthCenters))
+
 
       var addMarkers = function(map) {};
+
+      // Function to create markers and add them to the map
+      // Only health centers with ZIP codes between 1940 and 1949
+      for (i=0; i<healthCenters.length; i=i+1){
+        if (healthCenters[i].ZIP>=19140 & healthCenters[i].ZIP<=19149) {
+          marker = L.marker([healthCenters[i].LAT,healthCenters[i].LNG]);
+          marker.bindPopup(healthCenters[i].Name);
+          marker.addTo(map);
+        }
+      }
 
       /* =====================
 
