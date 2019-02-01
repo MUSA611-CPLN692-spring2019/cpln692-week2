@@ -66,17 +66,10 @@
       var jsonToCsv = function(json) { console.log(json); };
 
       //Log series of arrays
-      var infoList = data => {
-        for (i=0;i<healthCenters.length;i+=1){
-          console.log(Object.values(healthCenters[0]))
-        }
-      }
-      var allHealthCenters = infoList(healthCenters)
-      //List of keys
-      var healthCentersKeys = Object.keys(healthCenters[0])
-      var healthCentersKeys2 = [healthCentersKeys]
-      console.log(healthCentersKeys2.concat(allHealthCenters))
-
+      var getValues = (x) => {return Object.values(x)}
+      var allHealthCenters = healthCenters.map(getValues)
+      var getKeys = [Object.keys(healthCenters[0])]
+      console.log(getKeys.concat(allHealthCenters))
 
       var addMarkers = function(map) {};
 
