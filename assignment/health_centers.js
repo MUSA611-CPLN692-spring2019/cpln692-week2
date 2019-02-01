@@ -1,5 +1,5 @@
 // Preloaded healthcenter JSON
-var healthCenters = [
+const healthCenters = [
   {
     "LNG":-75.16472099534634,
     "LAT":40.034508187448395,
@@ -541,3 +541,29 @@ var healthCenters = [
     "FULL_ADDRESS":"2144 Cecil B Moore Ave"
   }
 ];
+]
+
+const keys = [['zip', 'address']]
+const targets = healthCenters.filter(item => item.ZIP >= 19140 && item.ZIP <= 19149)
+const rows = targets.map(({ ZIP, FULL_ADDRESS }) => ([ZIP, FULL_ADDRESS]))
+const result = keys.concat(rows)
+console.log('health centers within the zip codes from 19140 to 19149 (inclusive)', result)
+
+const map = L.map('mapid').setView([39.975232206175015, -75.13438358902931], 12)
+window.map = map
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map)
+
+const len = targets.length
+for (let index = 0; index < len; index += 1) {
+  const el = targets[index]
+  const marker = L.marker([el.LAT, el.LNG])
+    .addTo(map)
+    .bindPopup(`address: ${el.FULL_ADDRESS}`)
+
+  marker.on('click', () => {
+    marker.openPopup()
+  })
+}
