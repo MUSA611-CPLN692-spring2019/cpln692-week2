@@ -56,26 +56,53 @@
       ===================== */
 
 
-      /* =====================
 
-      Start code
+        var jsonToCsv = function(json){
+          var x = [];
+          x.push(Object.keys(json[0]));
+          for ( var i =0; i< json.length; i++){
+            x.push(Object.values(json[i]));
+          }
+          console.log(x);
+        };
 
-      ===================== */
+      /*var jsonToCsv = function(json) { console.log(json); };*/
 
-      var jsonToCsv = function(json) { console.log(json); };
+      var marker1 = L.icon({
+        iconUrl: 'images/marker1.png'
+      });
 
+      var marker2 = L.icon({
+        iconUrl: 'images/marker2.png'
+      });
 
-      var addMarkers = function(map) {};
+      var addMarkers = (map, json)=>{
 
-      /* =====================
+        for( let j = 0; j< json.length; j++){
 
-      End code
-
-      ===================== */
-
+          if(json[j].ZIP >= 19140 && json[j].ZIP <= 19149){
+            L.marker([json[j].LAT, json[j].LNG],{icon: marker1})
+            .addTo(map)
+            .bindPopup(json[j].NAME + " <br> "
+            +json[j].FULL_ADDRESS +"<br>"
+            +json[j].ZIP+"<br>"
+            +json[j].PHONE)
+            .openPopup();
+          }
+          if(json[j].DENTAL_PHONE != "N/A"){
+            L.marker([json[j].LAT, json[j].LNG], {icon: marker2})
+            .addTo(map)
+            .bindPopup(json[j].NAME + " <br> "
+            +json[j].FULL_ADDRESS+"<br>"
+            +json[j].ZIP+"<br>"
+            +json[j].PHONE)
+            .openPopup();
+          }
+        }
+      };
 
       jsonToCsv(healthCenters);
-      addMarkers(map);
+      addMarkers(map, healthCenters);
     </script>
     <!--Your code ends here-->
   </body>
