@@ -64,8 +64,43 @@
 
       var jsonToCsv = function(json) { console.log(json); };
 
+      let newHC = []
+      let otherHC = []
+      let sample = healthCenters[0]
 
-      var addMarkers = function(map) {};
+      let nameOfKey = ()=>{
+        for ( let x in sample){
+          newHC.push(x);
+        };
+      };
+      nameOfKey();
+
+      otherHC.push(newHC);
+            let nameOfValue = ()=>{
+              for (i = 0; i < healthCenters.length; i++){
+                let eachHealth = healthCenters[i];
+                let finalHC = [];
+                for (let y in eachHealth){
+                  finalHC.push(eachHealth[y]);
+                }
+                otherHC.push(finalHC);
+              };
+            };
+            nameOfValue();
+            console.log(otherHC);
+
+            let favouriteIcon = L.icon({
+                iconUrl: 'noun_573665_cc',
+              });
+              let aNewMarker = (map) =>{
+                for (let j = 1; j < otherHC.length; j++){
+                  L.marker([otherHC[j][1], otherHC[j][0]]).addTo(map).bindPopup(otherHC[j][3]).openPopup();
+                };
+              };
+              aNewMarker(map);
+
+
+
 
       /* =====================
 
