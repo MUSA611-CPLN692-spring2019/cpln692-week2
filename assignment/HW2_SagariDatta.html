@@ -16,8 +16,6 @@
     <script src="leaflet.js"></script>
     <script src="health_centers.js"></script>
 
-// trial change comment
-
     <!--Your code starts here-->
     <script>
       var map = L.map('map', {
@@ -64,10 +62,17 @@
 
       ===================== */
 
+
+      for (var i; i < healthCenters.length; i = i + 1) {
+        print(healthCenters[i]);
+      }
+
       var jsonToCsv = function(json) { console.log(json); };
 
 
-      var addMarkers = function(map) {};
+      var addMarkers = function(map) {
+          var marker1 = L.marker([39.955032, -75.202487]).addTo(map);
+      };
 
       /* =====================
 
