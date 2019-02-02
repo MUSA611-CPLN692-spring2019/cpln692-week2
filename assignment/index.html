@@ -62,20 +62,45 @@
 
       ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
 
 
-      var addMarkers = function(map) {};
+      var csvHC = [];
 
-      /* =====================
-
-      End code
-
-      ===================== */
-
+      var jsonToCsv = (obj) => {
+        csvHC.push(Object.keys(obj[0]));
+        for (i = 0; i < obj.length; i++) {
+          csvHC.push(Object.values(obj[i]))
+        }
+       };
 
       jsonToCsv(healthCenters);
-      addMarkers(map);
+
+      console.log(csvHC);
+
+      var myIcon1 = L.icon({iconUrl:'images/marker-icon1.png',
+          shadowUrl:'images/marker-shadow.png'});
+
+      var myIcon2 = L.icon({iconUrl:'images/marker-icon2.png',
+          shadowUrl:'images/marker-shadow.png'});
+
+
+      var addMarkers = (obj) => {
+        for (var i = 1 ; i < obj.length; i++) {
+          if (obj[i][5]>=19140 && obj[i][5]<=19149) {
+            if (obj[i][8]!="N/A") {
+              L.marker([obj[i][1],obj[i][0]],{icon: myIcon1}).addTo(map)
+              .bindPopup(obj[i][3])
+            } else {
+              L.marker([obj[i][1],obj[i][0]],{icon: myIcon2}).addTo(map)
+              .bindPopup(obj[i][3])
+            }
+          }
+        }
+      }
+
+
+      addMarkers(csvHC);
+
     </script>
     <!--Your code ends here-->
   </body>
