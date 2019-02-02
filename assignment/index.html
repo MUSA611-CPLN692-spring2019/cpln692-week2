@@ -63,46 +63,44 @@
       ===================== */
 
 
-      let centerInfo = [['LNG','LAT','OBJECTID','NAME','ORGANIZATION',
-          'ZIP','PHONE','WEBSITE','DENTAL_PHONE','FULL_ADDRESS']];
 
-      for (var i = 0; i < 45; i++) {
-        let newPoint = [parseFloat(`${healthCenters[i].LNG}`),
-          parseFloat(`${healthCenters[i].LAT}`),
-          `${healthCenters[i].OBJECTID}`,
-          `${healthCenters[i].NAME}`,
-          `${healthCenters[i].ORGANIZATION}`,
-          Number(`${healthCenters[i].ZIP}`),
-          `${healthCenters[i].PHONE}`,
-          `${healthCenters[i].WEBSITE}`,
-          `${healthCenters[i].DENTAL_PHONE}`,
-          `${healthCenters[i].FULL_ADDRESS}`];
-        centerInfo.push(newPoint)
-      };
-      console.log(centerInfo)
+      var csvHC = [];
 
-      var addMarkers = map => {
-        for (var j = 1; j < centerInfo.length; j++) {
-          L.marker([centerInfo[j][1], centerInfo[j][0]])
-          .bindPopup(centerInfo[j][3])
-          .addTo(map)
+      var jsonToCsv = (obj) => {
+        csvHC.push(Object.keys(obj[0]));
+        for (i = 0; i < obj.length; i++) {
+          csvHC.push(Object.values(obj[i]))
         }
-      };
-
-      addMarkers(map);
-
-      var jsonToCsv = function(json) { console.log(json); };
-      //var addMarkers = function(map) {};
-
-      /* =====================
-
-      End code
-
-      ===================== */
-
+       };
 
       jsonToCsv(healthCenters);
-      //addMarkers(map);
+
+      console.log(csvHC);
+
+      var myIcon1 = L.icon({iconUrl:'images/marker-icon1.png',
+          shadowUrl:'images/marker-shadow.png'});
+
+      var myIcon2 = L.icon({iconUrl:'images/marker-icon2.png',
+          shadowUrl:'images/marker-shadow.png'});
+
+
+      var addMarkers = (obj) => {
+        for (var i = 1 ; i < obj.length; i++) {
+          if (obj[i][5]>=19140 && obj[i][5]<=19149) {
+            if (obj[i][8]!="N/A") {
+              L.marker([obj[i][1],obj[i][0]],{icon: myIcon1}).addTo(map)
+              .bindPopup(obj[i][3])
+            } else {
+              L.marker([obj[i][1],obj[i][0]],{icon: myIcon2}).addTo(map)
+              .bindPopup(obj[i][3])
+            }
+          }
+        }
+      }
+
+
+      addMarkers(csvHC);
+
     </script>
     <!--Your code ends here-->
   </body>
