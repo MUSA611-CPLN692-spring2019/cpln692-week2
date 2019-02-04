@@ -7,7 +7,7 @@ Instructions: "Write a function that adds one to the number provided"
 Example: "plusOne(2) should return 3"
 ===================== */
 
-var plusOne = function() {};
+var plusOne = function(num) { return num +1 };
 
 console.log('plusOne success:', plusOne(99) === 100);
 
@@ -17,7 +17,7 @@ Example: "plusTwo(2) should return 3"
 NOTE: Try using the `plusOne` function in the body of your `plusTwo` function
 ===================== */
 
-var plusTwo = function() {};
+var plusTwo = function(num) { return num +2 };
 
 console.log('plusTwo success:', plusTwo(99) === 101);
 
@@ -28,7 +28,7 @@ if so, it returns even or odd depending on the number, otherwise it returns "err
 
 ===================== */
 
-var oddOrEven = function() {};
+var oddOrEven = function isInt8(n) {return +n === n && !(n % 1)};
 
 console.log('oddOrEven success:', oddOrEven(100) === 'even' && oddOrEven(201) === 'odd');
 
