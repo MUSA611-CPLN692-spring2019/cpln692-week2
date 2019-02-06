@@ -7,7 +7,9 @@ Instructions: "Write a function that adds one to the number provided"
 Example: "plusOne(2) should return 3"
 ===================== */
 
-var plusOne = function() {};
+var plusOne = function (y) {
+    return y + 1;
+};
 
 console.log('plusOne success:', plusOne(99) === 100);
 
