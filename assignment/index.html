@@ -61,11 +61,30 @@
       Start code
 
       ===================== */
+      var jsontoCsv = function(json) {console.log(json); };
+      var jsonToCsv = function(json) {
+        var x = [];
+        x.push(Object.keys(json[0]));
 
-      var jsonToCsv = function(json) { console.log(json); };
+        for (var i in json) {
+          x.push(Object.values(json[i]));
+        }
+        console.log(x);
+      };
 
+    // not done yet need to test and see that it shows up in array form -- with titles coming across the top, and each one in a list
 
-      var addMarkers = function(map) {};
+      var makeAMarker = (obj) => {
+        return L.circleMarker([obj.LAT, obj.LNG],{
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 15
+        } ).bindPopup(obj.NAME)}
+      for (i = 0; i < healthCenters.length; i = i+ 1) { makeAMarker(healthCenters[i]).addTo(map)}
+      var markers = healthCenters.map(makeAMarker);
+      markers.forEach((marker) => { marker.addTo(map)})
+
 
       /* =====================
 
@@ -75,7 +94,7 @@
 
 
       jsonToCsv(healthCenters);
-      addMarkers(map);
+      makeAMarker(map);
     </script>
     <!--Your code ends here-->
   </body>
