@@ -79,11 +79,13 @@
       // with a popup (a simple text dialog) that shows that location's name when its marker
       // is clicked.
 
-      function putMarker(j){
-        return L.marker([j.LAT, j.LNG]).bindPopup(j.NAME)}.
-        for (var i = 0; i < healthCenters.length; i = i+1) {addMarker(healthCenters[i]).addTo(map)}
+      var putMarker = function(j) {
+        return L.marker([j.LAT, j.LNG]).bindPopup(j.NAME)};
+        var i;
+        for (i = 0; i < healthCenters.length; i = i+1) {putMarker(healthCenters[i]).addTo(map)};
+        var markers = healthCenters.map(putMarker);
+        markers.forEach((marker) => {marker.addTo(map)})
 
-        putMarker[healthCenters]
       /* =====================
 
       End code
