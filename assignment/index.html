@@ -62,10 +62,29 @@
 
       ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
+      var jsonToCsv = function(json) {
 
+         console.log(json); };
 
       var addMarkers = function(map) {};
+
+      // Part 1: log a series of arrays to the console that represents the health_centers dataset
+      // in array form.
+      var i;
+      for (i = 0; i < healthCenters.length; i++) {
+        console.log(healthCenters[i]);
+      }
+
+      // Part 2: Put a marker on the map for each health center in the specified lat/lng coordinates
+      // with a popup (a simple text dialog) that shows that location's name when its marker
+      // is clicked.
+
+      var putMarker = function(j) {
+        return L.marker([j.LAT, j.LNG]).bindPopup(j.NAME)};
+        var i;
+        for (i = 0; i < healthCenters.length; i = i+1) {putMarker(healthCenters[i]).addTo(map)};
+        var markers = healthCenters.map(putMarker);
+        markers.forEach((marker) => {marker.addTo(map)})
 
       /* =====================
 
