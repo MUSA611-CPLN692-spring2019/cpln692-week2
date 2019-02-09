@@ -55,8 +55,7 @@
        use them to organize your code.
       ===================== */
 
-
-
+      // Code to get an array of objects from dictionary
         var jsonToCsv = function(json){
           var x = [];
           x.push(Object.keys(json[0]));
@@ -66,8 +65,8 @@
           console.log(x);
         };
 
-      /*var jsonToCsv = function(json) { console.log(json); };*/
 
+      // Declaring the marker paths
       var marker1 = L.icon({
         iconUrl: 'images/marker1.png'
       });
@@ -76,27 +75,28 @@
         iconUrl: 'images/marker2.png'
       });
 
+
+      //Function to add markers
       var addMarkers = (map, json)=>{
 
         for( let j = 0; j< json.length; j++){
 
-          if(json[j].ZIP >= 19140 && json[j].ZIP <= 19149){
-            L.marker([json[j].LAT, json[j].LNG],{icon: marker1})
-            .addTo(map)
-            .bindPopup(json[j].NAME + " <br> "
-            +json[j].FULL_ADDRESS +"<br>"
-            +json[j].ZIP+"<br>"
-            +json[j].PHONE)
-            .openPopup();
-          }
-          if(json[j].DENTAL_PHONE != "N/A"){
-            L.marker([json[j].LAT, json[j].LNG], {icon: marker2})
-            .addTo(map)
-            .bindPopup(json[j].NAME + " <br> "
-            +json[j].FULL_ADDRESS+"<br>"
-            +json[j].ZIP+"<br>"
-            +json[j].PHONE)
-            .openPopup();
+          if(json[j].ZIP >= 19140 && json[j].ZIP <= 19149){ //getting observations within a range
+            if(json[j].DENTAL_PHONE!="N/A"){
+              L.marker([json[j].LAT, json[j].LNG], {icon: marker2})
+              .addTo(map)
+              .bindPopup(json[j].NAME + " <br> "
+              +json[j].FULL_ADDRESS+"<br>"
+              +json[j].ZIP+"<br>"
+              +json[j].PHONE);
+            } else {
+              L.marker([json[j].LAT, json[j].LNG],{icon: marker1})
+              .addTo(map)
+              .bindPopup(json[j].NAME + " <br> " //using <br> to add breaks
+              +json[j].FULL_ADDRESS +"<br>"
+              +json[j].ZIP+"<br>"
+              +json[j].PHONE);
+            }
           }
         }
       };
