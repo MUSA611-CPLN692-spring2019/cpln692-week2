@@ -55,27 +55,54 @@
        use them to organize your code.
       ===================== */
 
+      // Code to get an array of objects from dictionary
+        var jsonToCsv = function(json){
+          var x = [];
+          x.push(Object.keys(json[0]));
+          for ( var i =0; i< json.length; i++){
+            x.push(Object.values(json[i]));
+          }
+          console.log(x);
+        };
 
-      /* =====================
 
-      Start code
+      // Declaring the marker paths
+      var marker1 = L.icon({
+        iconUrl: 'images/marker1.png'
+      });
 
-      ===================== */
+      var marker2 = L.icon({
+        iconUrl: 'images/marker2.png'
+      });
 
-      var jsonToCsv = function(json) { console.log(json); };
 
+      //Function to add markers
+      var addMarkers = (map, json)=>{
 
-      var addMarkers = function(map) {};
+        for( let j = 0; j< json.length; j++){
 
-      /* =====================
-
-      End code
-
-      ===================== */
-
+          if(json[j].ZIP >= 19140 && json[j].ZIP <= 19149){ //getting observations within a range
+            if(json[j].DENTAL_PHONE!="N/A"){
+              L.marker([json[j].LAT, json[j].LNG], {icon: marker2})
+              .addTo(map)
+              .bindPopup(json[j].NAME + " <br> "
+              +json[j].FULL_ADDRESS+"<br>"
+              +json[j].ZIP+"<br>"
+              +json[j].PHONE);
+            } else {
+              L.marker([json[j].LAT, json[j].LNG],{icon: marker1})
+              .addTo(map)
+              .bindPopup(json[j].NAME + " <br> " //using <br> to add breaks
+              +json[j].FULL_ADDRESS +"<br>"
+              +json[j].ZIP+"<br>"
+              +json[j].PHONE);
+            }
+          }
+        }
+      };
 
       jsonToCsv(healthCenters);
-      addMarkers(map);
+      addMarkers(map, healthCenters);
     </script>
     <!--Your code ends here-->
   </body>
