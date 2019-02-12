@@ -65,6 +65,54 @@
       var jsonToCsv = function(json) { console.log(json); };
 
 
+      // part 1
+      const header = [Object.keys(healthCenters[0])];
+      for (var i=0; i<healthCenters.length; i++) {
+          var health = [healthCenters[i].LNG,
+          healthCenters[i].LAT,
+          healthCenters[i].OBJECTID,
+          healthCenters[i].NAME,
+          healthCenters[i].ORGANIZATION,
+          healthCenters[i].ZIP,
+          healthCenters[i].PHONE,
+          healthCenters[i].WEBSITE,
+          healthCenters[i].DENTAL_PHONE,
+          healthCenters[i].FULL_ADDRESS];
+          header.push(health);
+      };
+      console.log(header);
+      // part 2
+      var iconHC = L.icon({
+        iconUrl:'images/marker-icon-2x.png',
+        iconSize:     [38, 50], // size of the icon
+        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+      var iconDT = L.icon({
+        iconUrl:'images/icon_dental.png',
+        iconSize:     [38, 50], // size of the icon
+        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor})
+    });
+
+      var addMarkers = function(map){
+       for (var j=0; j<header.length; j++) {
+         if(header[j][5]>19139 && header[j][5]<19150){
+         if(header[j][8] === 'N/A'){
+           L.marker([header[j][1], header[j][0]], {icon:iconHC})
+           .addTo(map)
+           .bindPopup(header[j][3]);
+           } else {
+           L.marker([header[j][1], header[j][0]], {icon:iconDT})
+           .addTo(map)
+           .bindPopup(header[j][3]);
+         }
+         }
+       }
+     };
+
+
+
       var addMarkers = function(map) {};
 
       /* =====================
