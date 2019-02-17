@@ -6,7 +6,7 @@
   </head>
   <body>
     <!--left panel-->
-    <div style="position:fixed;left:0px;width:400px">
+    <div id="panel" style="position:fixed;left:0px;width:400px">
     </div>
     <!--map-->
     <div id="map" style="position:fixed;right:0px;left:400px;height:100%;">
@@ -62,10 +62,53 @@
 
       ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
+      var healthArray = healthCenters.map(function(elem) {
 
+          return [Object.keys(elem),Object.values(elem)]
+          })
 
-      var addMarkers = function(map) {};
+      console.log(healthArray)
+
+      var jsonToCsv = function(json) {
+
+        var panelWidth = document.getElementById('panel').offsetWidth;
+
+        for (var i = 0; i < json.length; i++){
+
+          //console.log(json[i]["NAME"]);
+
+          var button = document.createElement('button');
+          button.setAttribute('content', 'test content');
+          button.setAttribute('class', 'btn');
+          button.setAttribute("style","width:"+panelWidth+"px;background-color: white;color: black;border: 2px solid #e7e7e7");
+          button.innerHTML = json[i]["NAME"]+ "<br />";
+          //button.onmouseover = button.setAttribute("style","width:"+panelWidth+"px;background-color: grey;color: black;border: 2px solid #e7e7e7");
+
+          var div = document.createElement("div");
+
+          document.getElementById('panel').appendChild(div).appendChild(button)
+          }
+      };
+
+      var myIcon = L.icon({
+          iconUrl: 'images/marker-icon-2x.png',
+          iconSize: [38, 95],
+          iconAnchor: [22, 94],
+          popupAnchor: [-3, -76],
+        });
+
+      var addMarkers = function(map) {
+
+        var mapArray = healthCenters.map(function(elem){
+            if(/Dental/.test(elem["NAME"])){
+              console.log(elem["NAME"])
+              return L.marker([elem["LAT"],elem["LNG"]],{icon:myIcon}).addTo(map)
+            }else{
+              return L.marker([elem["LAT"],elem["LNG"]]).addTo(map)
+            }
+        })
+
+      };
 
       /* =====================
 
