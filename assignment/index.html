@@ -63,9 +63,34 @@
       ===================== */
 
       var jsonToCsv = function(json) { console.log(json); };
-
-
       var addMarkers = function(map) {};
+
+
+//Part 1
+//Log a series of arrays to the console that represents the health_centers dataset in array form.
+//Code guidance: https://openclassrooms.com/en/courses/3523231-learn-to-code-with-javascript/3703666-store-data-in-arrays
+
+//My initial attempt did not create an array of arrays...tried a different approach
+//Code guidance: CodeCademy Introduction To JavaScript 6-8
+//Code guidance: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values
+//Code guidance: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+//Code guidance: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys
+//Code guidance: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
+ 
+  var returnValues = function (obj) {return Object.values(obj)};//Establishes a function to return object values
+  var valuesHC = healthCenters.map(returnValues);//Creates a new array from healthCenters data for each center using created function
+  var keysHC = [Object.keys(healthCenters[0])];//Creates an array of healthCenters keys
+  var arrayOfArrays = keysHC.concat(valuesHC);//Merges array of keys with array of health care data
+  console.log(arrayOfArrays);//Console logs the array of arrays
+
+//Part 2
+//Put a marker on the map for each health center in the specified lat/lng coordinates with a popup (a simple text dialog) that
+//shows that location's name when its marker is clicked.
+//Code guidance: https://leafletjs.com/examples/layers-control/ & https://leafletjs.com/examples/custom-icons/
+
+var addMarker = function(x) { return L.marker([x.LAT, x.LNG]).bindPopup(x.NAME) }//function that returns a marker (lat,lng) and popup (name) for a variable
+for  (var i=0; i <healthCenters.length; i++) { addMarker(healthCenters[i]).addTo(map) }//uses function to add marker and popup for each variable in array and adds to map
+
 
       /* =====================
 
