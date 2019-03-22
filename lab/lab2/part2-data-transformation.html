@@ -69,8 +69,13 @@
     Start code to filter data
 
     ===================== */
-
-
+    var filteredData = []
+    for(var i = 0; i<data.length; i++){
+      if(data[i][3]>=20){
+        filteredData.push(data[i])
+      }
+      console.log( filteredData)
+    }
 
     /* =====================
 
@@ -96,6 +101,11 @@
     Start code to add markers to map
 
     ===================== */
+
+      for (let i = 0; i <= filteredData.length; i++){
+        L.marker(filteredData[i][1], filteredData[i][0]).addTo(map).bindPopup(filteredData[i][2]).openPopup();
+      };
+  
 
 
 
