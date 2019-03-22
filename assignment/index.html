@@ -62,32 +62,40 @@
 
       ===================== */
 
-      var header = [Object.keys(healthCenters[0])];
-      var TempArr = [Object.values(healthCenters)];
-      healthCentersArr = header.push(TempArr);
-      for (i=0; i < healthCentersArr.length; i++){console.log(healthCentersArr)};
+      var header = ['Lat','Lng','Name','Zip','Dental Phone'];
+      var tempArr = []
+      healthCentersArr = header.push(tempArr);
+      for (var i=0; i<healthCenters.length; i++){
+        healthInfo = [
+          healthCenters[i]["LAT"],
+          healthCenters[i]["LNG"],
+          healthCenters[i]["NAME"],
+          healthCenters[i]["ZIP"],
+          healthCenters[i]["DENTAL_PHONE"]
+        ];
+        tempArr.push(healthInfo);
+      };
+      console.log(tempArr);
 
         var addIcon1 = L.icon({
             iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
-            iconSize: [38, 95],
+            iconSize: [20, 20],
             iconAnchor: [22, 94],
             popupAnchor: [-3, -76],
                   });
         var addIcon2 =  L.icon({
             iconUrl: 'https://www.pngarts.com/files/4/Dot-PNG-Pic.png',
-            iconSize: [38, 95],
+            iconSize: [20, 20],
             iconAnchor: [22, 94],
             popupAnchor: [-3, -76],
                   });
 
-      var addMarkers1 = (map) => {return L.marker([obj[1],obj[0]]).bindPopuup(obj[3],{icon: addIcon1})};
-      var addMarkers2 = (map) => {return L.marker([obj[1],obj[0]]).bindPopuup(obj[3],{icon: addIcon2})};
-      for (var i = 0; i < healthCentersArr.length; i++) {
-        if(19140 <= healthCentersArr[i][5] <= 19149){
-          if (healthCentersArr[8] === "N/A"){
-            addMarkers1(healthCentersArr).addTo(map).bindPopup(healthCentersArr[i][3]);
+      for (var j = 0; j < tempArr.length; j++) {
+        if(19140 <= tempArr[j][3] <= 19149){
+          if (tempArr[j][4] === "N/A"){
+            L.marker([tempArr[j][0],tempArr[j][1]], {icon: addIcon1}).addTo(map).bindPopup(tempArr[j][2]);
           } else {
-            addMarkers2(healthCentersArr).addTo(map).bindPopup(healthCentersArr[i][3]);
+            L.marker([tempArr[j][0],tempArr[j][1]], {icon: addIcon2}).addTo(map).bindPopup(tempArr[j][2] + " " +tempArr[j][4]);
           }
     }
   };
