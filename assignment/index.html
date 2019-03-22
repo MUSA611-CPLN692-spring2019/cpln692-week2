@@ -64,7 +64,7 @@
 
       var header = ['Lat','Lng','Name','Zip','Dental Phone'];
       var tempArr = []
-      healthCentersArr = header.push(tempArr);
+
       for (var i=0; i<healthCenters.length; i++){
         healthInfo = [
           healthCenters[i]["LAT"],
@@ -75,7 +75,8 @@
         ];
         tempArr.push(healthInfo);
       };
-      console.log(tempArr);
+      healthCentersArr = [header, tempArr];
+      console.log(healthCentersArr);
 
         var addIcon1 = L.icon({
             iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Blue_dot.png',
