@@ -38,7 +38,9 @@
           exampleSum = exampleSum + arrayValue.length
         } else if (typeof arrayValue === 'number') {  // Number case
           exampleSum = exampleSum + arrayValue
-        } else {                                      // Otherwise
+        } else if (arraycondition) {
+          
+        }                                  // Otherwise
           console.log("Not sure how to proceed with value:", arrayValue)
         }
       }

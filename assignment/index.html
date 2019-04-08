@@ -43,6 +43,8 @@
        in array form. For example, [{'first': 1, 'second': 44}, {'first': 2, 'second': 12}]
        becomes [['first','second'],[1, 44],[2, 12]]
 
+
+
        2. Put a marker on the map for each health center in the specified lat/lng coordinates
        with a popup (a simple text dialog) that shows that location's name when its marker
        is clicked.
@@ -62,10 +64,36 @@
 
       ===================== */
 
-      var jsonToCsv = function(json) { console.log(json); };
+      var jsonToCsv = function(json) {
+        var outlist = [];
+        var mykeys = Object.keys(json[0]);
+        outlist.push(mykeys);
+
+        for (i = 0; i < json.length; i++) {
+          var myvalues = Object.values(healthCenters[i])
+          outlist.push(myvalues);
+        }
+
+        console.log(outlist);
+      };
 
 
-      var addMarkers = function(map) {};
+      var addMarkers = function(map) {
+        var dentalIcon = L.icon({
+            iconUrl: 'images/dental.png',
+            iconSize:     [40, 40]
+        });
+        for (i = 0; i < healthCenters.length; i++) {
+          if (healthCenters[i].DENTAL_PHONE!="N/A") {
+            var marker = L.marker([healthCenters[i].LNG,healthCenters[i].LAT], {icon: dentalIcon}).addTo(map);
+          } else {
+            var marker = L.marker([healthCenters[i].LNG,healthCenters[i].LAT]).addTo(map);
+          }
+
+          marker.bindPopup("<b>"+healthCenters[i].NAME+"</b>").openPopup();
+
+        }
+      };
 
       /* =====================
 
