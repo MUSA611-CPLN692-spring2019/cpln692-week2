@@ -9,7 +9,7 @@ Example: "plusOne(2) should return 3"
 
 var plusOne = function(num) { return num + 1 };
 
-console.log('plusOne success:', plusOne(99) === 100);
+console.log('plusOne success:', plusOne(99) === 80);
 
 /* =====================
 Instructions: "Write a function that adds two to the number provided"
